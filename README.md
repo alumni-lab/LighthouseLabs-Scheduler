@@ -1,3 +1,12 @@
+Lighthouse Labs Scheduler is a serverless React application created to modernize mentor scheduling.
+
+## Getting Started
+
+Fork this repository, then clone your fork of this repository.
+Install dependencies using the npm install command.
+Start the web server using the npm run local or npm start command. The app will be served at http://localhost:3000/.
+Go to http://localhost:3000/ in your browser.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
