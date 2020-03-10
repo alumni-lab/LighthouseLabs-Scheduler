@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import './App.css';
+
+import Main from './screens/main/components/Main'
+import Profile from './screens/profile/components/Profile'
+import Dashboard from './screens/dashboard/components/Dashboard'
+import Login from './screens/login/components/Login'
+import SignUp from './screens/signup/components/SignUp'
+import Home from './screens/home/components/Home'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Switch>
+        <Route path="/main/:userType" render={routeProps=> <Main/> } />
+        <Route path="/profile/:userId" render={routeProps=> <Profile/> } />
+        <Route path="/dashboard" render={routeProps=> <Dashboard/> } />
+        <Route path="/login" render={routeProps=> <Login/> } />
+        <Route path="/signup" render={routeProps=> <SignUp/> } />
+        <Route path="/" render={routeProps=> <Home/> } />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App;
