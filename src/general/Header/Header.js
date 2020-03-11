@@ -12,9 +12,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
 
-import saveToLocal from  '../../screens/main/helpers/saveToLocal'
+
 // core components
-import styles from "../../assets/jss/material-kit-react/components/headerStyle";
+import styles from "../assets/jss/material-kit-react/components/headerStyle";
 //assets/jss/material-kit-react/components/headerStyle.js
 
 const useStyles = makeStyles(styles);
@@ -58,10 +58,7 @@ export default function Header(props) {
         </div>
           :  
         <Button className={classes.title} onClick={()=>{
-          if(props.columns) {
-            saveToLocal(props.columns, props.budget)
-          }
-          
+         
           }} component= { Link } to="/login">LOGIN</Button>}
     </AppBar>
   )
