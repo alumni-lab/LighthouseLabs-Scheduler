@@ -1,0 +1,8 @@
+.add_space {
+  display: flex;
+  padding-top: 80px;
+}
+
+.employee_list_heading {
+  justify-content: center;
+}

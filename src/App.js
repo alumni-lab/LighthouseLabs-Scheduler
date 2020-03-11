@@ -12,7 +12,7 @@ import Dashboard from './screens/dashboard/components/Dashboard'
 import Login from './screens/login/components/Login'
 import SignUp from './screens/signup/components/SignUp'
 import Home from './screens/home/components/Home'
-
+import EmployeeList from './screens/employees/components/EmployeeList';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
         <Route path="/dashboard" render={routeProps=> <Dashboard/> } />
         <Route path="/login" render={routeProps=> <Login/> } />
         <Route path="/signup" render={routeProps=> <SignUp/> } />
+        <Route path="/employees" render={routeProps=> <EmployeeList /> } />
         <Route path="/" render={routeProps=> <Home/> } />
       </Switch>
     </Router>
