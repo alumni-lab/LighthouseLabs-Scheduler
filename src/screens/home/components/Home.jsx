@@ -16,11 +16,12 @@ const Home = () => {
 
         <Link to={`/main/${userType}`}>Schedule</Link>
         <Link to='/dashboard'>Dashboard</Link>
-        {userType==='admin'?
+        {userType==='admin'? 
         <Link to='/signup'>Create New User</Link>
         :
         null
         }
+        <Link to='/employees'>All employees</Link>
       </div>
     </div>
   );
