@@ -4,6 +4,14 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
+//checkbox
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import Person from '@material-ui/icons/Person'
@@ -21,13 +29,21 @@ import styles from "../../../general/Assets/jss/material-kit-react/views/loginPa
 // import image from "../../../assets/img/temple-trees.jpg";
 // --------- HELPER FUNCTION --------------------------- //
 import attemptSignUp from "../helpers/attemptSignUp";
+
 const SignUp = props => {
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
+
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [role, setRole] = useState('');
+  const [wage, setWage] = useState('');
+  const [fullTimeStatus, setFullTimeStatus] = useState(false);
+  const [abilityToLecture, setAbilityToLecture] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // const [userEmail, setUserEmail] = useState("");
+  // const [userPassword, setUserPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
   // --------- CARD DROP-DOWN STYLE --------------------- //
@@ -40,7 +56,7 @@ const SignUp = props => {
     <div>
       <Header
         color="transparent"
-        brand="TRIPPER"
+        brand="LHL SCHEDULER"
         fixed
         user={props.user}
         setUser={props.setUser}
@@ -59,15 +75,18 @@ const SignUp = props => {
               <Card className={classes[cardAnimaton]}>
                 <form
                   className={classes.form}
-                  onSubmit={event => {
+                   onSubmit={event => {
+                    event.preventDefault(); 
+
                     attemptSignUp(
-                      event,
                       userFirstName,
                       userLastName,
-                      userEmail,
-                      userPassword,
-                      setError,
-                      props.setUser
+                      role,
+                      wage,
+                      fullTimeStatus,
+                      abilityToLecture,
+                      isAdmin,
+                      setError
                     );
                   }}
                 >
@@ -80,15 +99,15 @@ const SignUp = props => {
                     <CustomInput
                       labelText="First Name"
                       id="first_name"
-                      formControlProps={{ fullWidth: true }}
+                      formControlProps={{ fullWidth: true, required:true }}
                       inputProps={{
                         type: "text",
                         value: userFirstName,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Person className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
+                        // endAdornment: (
+                        //   <InputAdornment position="end">
+                        //     <Person className={classes.inputIconsColor} />
+                        //   </InputAdornment>
+                        // ),
                         onChange: e => {
                           setUserFirstName(e.target.value);
                         }
@@ -97,59 +116,83 @@ const SignUp = props => {
                     <CustomInput
                       labelText="Last Name"
                       id="last_name"
-                      formControlProps={{ fullWidth: true }}
+                      formControlProps={{ fullWidth: true, required: true }}
                       inputProps={{
                         type: "text",
                         value: userLastName,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Person className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
+                        // endAdornment: (
+                        //   <InputAdornment position="end">
+                        //     <Person className={classes.inputIconsColor} />
+                        //   </InputAdornment>
+                        // ),
                         onChange: e => {
                           setUserLastName(e.target.value);
                         }
                       }}
                     />
                     <CustomInput
-                      labelText="Email"
-                      id="email"
+                      labelText="Wage($)"
+                      id="wage"
                       formControlProps={{ fullWidth: true }}
                       inputProps={{
-                        type: "email",
-                        value: userEmail,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
+                        type: "text",
+                        value: wage,
+                        // endAdornment: (
+                        //   <InputAdornment position="end">
+                        //     <Person className={classes.inputIconsColor} />
+                        //   </InputAdornment>
+                        // ),
                         onChange: e => {
-                          setUserEmail(e.target.value);
+                          if (Number(e.target.value)) {
+                            setWage(e.target.value);
+                          } else {
+                            setWage('');
+                          }
                         }
                       }}
                     />
-                    <CustomInput
-                      labelText="Password"
-                      id="pass"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "password",
-                        value: userPassword,
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off",
-                        onChange: e => {
-                          setUserPassword(e.target.value);
-                        }
+                    <Autocomplete
+                      options={['Insturctor', 'Mentor', 'Staff']}
+                      getOptionLabel={option => option}
+                      id="auto-select"
+                      autoSelect
+                      renderInput={params => <TextField required={true} {...params} label="Role" style={{opacity:0.6,marginBottom:'20px'}} />}
+                      value={role}
+                      onChange={(event, newValue) => {
+                        setRole(newValue);
                       }}
                     />
+                  <FormGroup row>
+                    <FormControlLabel
+                      control={
+                        <Checkbox 
+                          checked={fullTimeStatus} 
+                          onChange={e=>setFullTimeStatus(!fullTimeStatus)} 
+                        />
+                      }
+                      label="Full-Time"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={abilityToLecture}
+                          onChange={e=>setAbilityToLecture(!abilityToLecture)}
+                          color="primary"
+                        />
+                      }
+                      label="Able to Lecture"
+                    />
+                    <FormControlLabel 
+                      control={
+                        <Checkbox 
+                          checked={isAdmin}
+                          onChange={e=>setIsAdmin(!isAdmin)}
+                          color="default"
+                        />
+                      }
+                      label="Admin" />
+                  
+                  </FormGroup>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button type="submit" simple color="info" size="lg">
@@ -166,3 +209,44 @@ const SignUp = props => {
   );
 };
 export default SignUp;
+
+
+{/* <CustomInput
+labelText="Email"
+id="email"
+formControlProps={{ fullWidth: true }}
+inputProps={{
+  type: "email",
+  value: userEmail,
+  endAdornment: (
+    <InputAdornment position="end">
+      <Email className={classes.inputIconsColor} />
+    </InputAdornment>
+  ),
+  onChange: e => {
+    setUserEmail(e.target.value);
+  }
+}}
+/>
+<CustomInput
+labelText="Password"
+id="pass"
+formControlProps={{
+  fullWidth: true
+}}
+inputProps={{
+  type: "password",
+  value: userPassword,
+  endAdornment: (
+    <InputAdornment position="end">
+      <Icon className={classes.inputIconsColor}>
+        lock_outline
+      </Icon>
+    </InputAdornment>
+  ),
+  autoComplete: "off",
+  onChange: e => {
+    setUserPassword(e.target.value);
+  }
+}}
+/> */}
