@@ -16,7 +16,7 @@ const makeID = (fname,lname) => {
 const makePW = (fname) => {
 
   const rand6 = randomFixedInteger(6)
-  const firstN = fname.split("");
+  const firstN = fname.toLowerCase().split("");
   const randIndex = Math.floor(Math.random()*firstN.length);
   firstN[randIndex]=firstN[randIndex].toUpperCase();
   const string = firstN.join("")
@@ -29,6 +29,17 @@ const makePW = (fname) => {
   return password
 }
 
+const formatName = name => {
+  let n = name.toLowerCase().split("");
+  n[0] = n[0].toUpperCase();
+  const formattedName = n.join("");
+  return formattedName;
+}
+
+
+
+
+
 export default function attemptSignUp (
   userFirstName,
   userLastName,
@@ -39,10 +50,10 @@ export default function attemptSignUp (
   isAdmin,
   setError
 ) {
-  //conversion
+  //formatting
   wage = wage*100
-  userFirstName = userFirstName.toLowerCase();
-  userLastName = userLastName.toLowerCase();
+  userFirstName = formatName(userFirstName);
+  userLastName = formatName(userLastName);
   role = role.toLowerCase();
 
   //generating id, pw
@@ -62,18 +73,18 @@ export default function attemptSignUp (
     isAdmin
   }
   console.log(userInput)
-  // const req = {
-  //   url: "/users/signup",
-  //   method: "POST",
-  //   data: userInput
-  // }
-  // axios(req)
-  //   .then(res => { 
-  //     if (res.data) {
-  //       console.log(res.data)
-  //     } else {
-  //       setError("User exist already")
-  //     }
-  //    })
-  //   .catch (e => console.error(e))
+  const req = {
+    url: "/users",
+    method: "POST",
+    data: userInput
+  }
+  axios(req)
+    .then(res => { 
+      if (res.data) {
+        console.log("result: ",res.data)
+      } else {
+        setError("User exist already")
+      }
+     })
+    .catch (e => alert("Failed to create a new user. Please Try Again."))
 }
