@@ -8,7 +8,7 @@ import './App.css';
 
 import Main from './screens/main/components/Main'
 import Profile from './screens/profile/components/Profile'
-import Employees from './screens/employees/components/Employees'
+// import Employees from './screens/employees/components/Employees'
 import Dashboard from './screens/dashboard/components/Dashboard'
 import Login from './screens/login/components/Login'
 import SignUp from './screens/signup/components/SignUp'
@@ -20,12 +20,12 @@ function App() {
     <Router>
       <Switch>
         <Route path="/main/:userType" render={routeProps=> <Main/> } />
-        <Route path="/employees/" render={routeProps=> <Profile/> } />
-        <Route path="/employees/:employeeId" render={routeProps=> <Profile/> } />
+        {/*<Route path="/employees/" render={routeProps=> <Profile/> } /> */}
         <Route path="/dashboard" render={routeProps=> <Dashboard/> } />
         <Route path="/login" render={routeProps=> <Login/> } />
         <Route path="/signup" render={routeProps=> <SignUp/> } />
         <Route path="/employees" render={routeProps=> <EmployeeList /> } />
+        <Route path="/employees/:employeeId" exact render={routeProps=> <Profile/> } />
         <Route path="/" render={routeProps=> <Home/> } />
       </Switch>
     </Router>
