@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 // core components
-import styles from "../assets/jss/material-kit-react/components/cardStyle";
+import styles from "../Assets/jss/material-kit-react/components/cardStyle";
 
 const useStyles = makeStyles(styles);
 
