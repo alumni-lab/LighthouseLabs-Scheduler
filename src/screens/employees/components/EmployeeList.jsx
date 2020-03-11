@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from "react-router-dom";
+import './employee.css'
 
 import Header from '../../../general/Header/Header';
 import EmployeeListItem from './EmployeeListItem';
@@ -48,13 +49,14 @@ const employees = [
 const EmployeeList = (props) => {
   return (
     <div>
-      {/*<Header brand="LHL SCHEDULER" fixed /> */}
+      <Header brand="LHL SCHEDULER" fixed />
+      <h1 className = 'add_space employee_list_heading'>Employee List</h1>
       {employees.map( (employee) => {
         return (
-          <EmployeeListItem 
-            key={employee.id} 
-            employee={employee} 
-          />
+            <EmployeeListItem 
+              key={employee.id} 
+              employee={employee} 
+            />
         )
       })}
     </div>

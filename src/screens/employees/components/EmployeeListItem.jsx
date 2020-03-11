@@ -3,7 +3,7 @@ import {arrFormatter} from '../helpers/helpers';
 
 const EmployeeListItem = ({employee}) => {
   return (
-    <div>
+    <div className='employee_list_item'>
       <ul>
         <li>
           <h3>Employeed ID: {employee.employee_id}</h3>
