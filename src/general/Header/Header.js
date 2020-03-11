@@ -14,7 +14,7 @@ import axios from 'axios';
 
 
 // core components
-import styles from "../assets/jss/material-kit-react/components/headerStyle";
+import styles from "../Assets/jss/material-kit-react/components/headerStyle";
 //assets/jss/material-kit-react/components/headerStyle.js
 
 const useStyles = makeStyles(styles);
@@ -46,7 +46,7 @@ export default function Header(props) {
   });
   // const brandComponent = <Button className={classes.title}>{brand}</Button>;
   return(
-    
+
     <AppBar className={`nav-header ${appBarClasses}`}>
       <div className= {classes.flex}>
         <Button className={classes.title} component= { Link } to="/">{brand}</Button>
@@ -54,11 +54,11 @@ export default function Header(props) {
         {(user)?
         <div>
           <Button className={classes.title} onClick={()=>{history.push(`/profile/${"useid here"}`)}}>{user.name}</Button>
-          <Button className={classes.title} onClick={logout}>LOG OUT</Button> 
+          <Button className={classes.title} onClick={logout}>LOG OUT</Button>
         </div>
-          :  
+          :
         <Button className={classes.title} onClick={()=>{
-         
+
           }} component= { Link } to="/login">LOGIN</Button>}
     </AppBar>
   )

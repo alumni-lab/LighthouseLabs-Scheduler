@@ -10,7 +10,7 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 
 // core components
-import Header from "../../../general/header/Header";
+import Header from "../../../general/Header/Header";
 import GridContainer from "../../../general/Grid/GridContainer";
 import GridItem from "../../../general/Grid/GridItem";
 import Button from "../../../general/CustomButtons/Button";
@@ -20,14 +20,14 @@ import CardBody from "../../../general/Card/CardBody";
 import CustomInput from "../../../general/CustomInput/CustomInput";
 import CardFooter from "../../../general/Card/CardFooter";
 
-import styles from "../../../general/assets/jss/material-kit-react/views/loginPage.js";
+import styles from "../../../general/Assets/jss/material-kit-react/views/loginPage.js";
 // import image from "../../../assets/img/temple-trees.jpg";
 
 // --------- HELPER FUNCTION --------------------------- //
 import attemptLogin from "../helpers/attemptLogin";
 
 const Login = props => {
-  
+
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   const [userEmail, setUserEmail] = useState("");
