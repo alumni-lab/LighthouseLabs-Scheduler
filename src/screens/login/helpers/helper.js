@@ -1,5 +1,7 @@
 import axios from 'axios';
-
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
 const cookieSetter = function (email, password) {
   const userInput = {email, password: password}
   const req = {
@@ -10,7 +12,7 @@ const cookieSetter = function (email, password) {
   return axios(req)
 };
 
-const attemptLogin = (event, email, password, setError, setUser) => {
+export function attemptLogin (event, email, password, setError, setUser) {
   event.preventDefault();
   cookieSetter(email, password)
     .then((res) => {
@@ -23,4 +25,23 @@ const attemptLogin = (event, email, password, setError, setUser) => {
     .catch(e => console.error(e))
 }
 
-export default attemptLogin;
+export function attemptSignUp (event, first_name, last_name, email, password, setError, setUser)  {
+  event.preventDefault();
+  // console.log(`attempting to sign-up with ${first_name}, ${last_name}, email: ${email} and password: ${password}`)
+  const userInput = {first_name, last_name, email, password}
+  const req = {
+    url: "/users/signup",
+    method: "POST",
+    data: userInput
+  }
+  axios(req)
+    .then(res => { 
+      if (res.data) {
+        console.log(res.data)
+        setUser({name: res.data.userInfoBackFromDb.first_name, id: res.data.userInfoBackFromDb.id})
+      } else {
+        setError("User exist already")
+      }
+     })
+    .catch (e => console.error(e))
+}

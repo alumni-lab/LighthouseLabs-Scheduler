@@ -53,7 +53,7 @@ export default function Header(props) {
       </div>
         {(user)?
         <div>
-          <Button className={classes.title} onClick={()=>{history.push(`/trips/${user.name}`)}}>{user.name}</Button>
+          <Button className={classes.title} onClick={()=>{history.push(`/profile/${"useid here"}`)}}>{user.name}</Button>
           <Button className={classes.title} onClick={logout}>LOG OUT</Button> 
         </div>
           :  

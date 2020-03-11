@@ -24,7 +24,7 @@ import styles from "../../../general/assets/jss/material-kit-react/views/loginPa
 // import image from "../../../assets/img/temple-trees.jpg";
 
 // --------- HELPER FUNCTION --------------------------- //
-import attemptLogin from "../helpers/helper";
+import {attemptLogin} from "../helpers/helper";
 
 const Login = props => {
   
