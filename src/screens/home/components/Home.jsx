@@ -12,7 +12,6 @@ const Home = () => {
         brand="LHL SCHEDULER"
         fixed 
       />
-      <Modal />
       <div style={{display:'flex', justifyContent:'center',alignItems:'center', flexDirection:'column'}}> 
 
         <Link to={`/main/${userType}`}>Schedule</Link>
