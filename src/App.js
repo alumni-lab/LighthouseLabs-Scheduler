@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import './App.css'
+import './App.css';
 
 import Main from './screens/main/components/Main'
 import Profile from './screens/profile/components/Profile'
