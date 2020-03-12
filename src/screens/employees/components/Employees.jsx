@@ -21,7 +21,7 @@ const Employees = (props) => {
     })
   },[])
   
-
+console.log(employees)
   return (
     <div>
       <Header
@@ -32,6 +32,7 @@ const Employees = (props) => {
         setUser={props.setUser}
       />
       <EmployeeList 
+        setEmployees={setEmployees}
         employees={employees}
         user={props.user}
       />

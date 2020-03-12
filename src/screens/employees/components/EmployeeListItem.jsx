@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {arrFormatter} from '../helpers/helpers';
-
+import Modal from '../../../general/Modal/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,6 +11,9 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
+
+import Edit from './Edit';
+import Delete from './Delete';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -39,13 +42,17 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
-const EmployeeListItem = ({employee,user}) => {
+const EmployeeListItem = (props) => {
   const classes = useStyles();
+  const user = props.user;
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const [employee, setEmployee] = useState(props.employee);
+ 
+  console.log(props.employees)
   return (
     <div className='employee_list_item'>
      <Card className={classes.root} variant="outlined">
@@ -106,8 +113,8 @@ const EmployeeListItem = ({employee,user}) => {
               </div>
               <div className='buttons'>
               <CardActions>
-                <Button color='primary' variant='contained' size="small">Edit</Button>
-                <Button color='secondary' variant='contained'  size="small">Delete</Button>
+                <Edit employee={employee} setEmployee={setEmployee}/>
+                <Delete employee={employee} employees={props.employees} setEmployees={props.setEmployees}/>
               </CardActions>
               </div>
             

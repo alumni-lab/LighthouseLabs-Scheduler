@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, useHistory } from "react-router-dom";
 import './employee.css'
 
@@ -7,6 +7,7 @@ import EmployeeListItem from './EmployeeListItem';
 
 
 const EmployeeList = (props) => {
+//  const [update, setUpdate] = useState(false);
   return (
     <div>
       <h1 className = 'add_space employee_list_heading'>Employee List</h1>
@@ -14,6 +15,8 @@ const EmployeeList = (props) => {
         return (
             <EmployeeListItem 
               key={employee.id} 
+              setEmployees={props.setEmployees}
+              employees={props.employees}
               employee={employee} 
               user={props.user}
             />
