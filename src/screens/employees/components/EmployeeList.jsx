@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import { Link, useHistory } from "react-router-dom";
 import './employee.css'
-
-import Header from '../../../general/Header/Header';
-import EmployeeDetail from './EmployeeDetail';
-
-import { arrSorterAscToDsc } from '../helpers/helpers';
-
+import EmployeeListItem from './EmployeeListItem'
 
 const EmployeeList = (props) => {
 //  const [update, setUpdate] = useState(false);
