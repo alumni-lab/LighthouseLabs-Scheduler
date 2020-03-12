@@ -19,3 +19,8 @@
   display: flex;
   justify-content: center;
 }
+
+.employee__contract__full_time {
+  font-weight: 700;
+  color: red;
+}

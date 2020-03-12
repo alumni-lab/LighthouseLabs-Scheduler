@@ -5,6 +5,8 @@ import './employee.css'
 import Header from '../../../general/Header/Header';
 import EmployeeDetail from './EmployeeDetail';
 
+import { arrSorterAscToDsc } from '../helpers/helpers';
+
 const employees = [
   {
   'id': 1,
@@ -51,9 +53,9 @@ const EmployeeList = (props) => {
     <div className="emp_list">
       <Header brand="LHL SCHEDULER" fixed />
       <h1 className = 'add_space employee_list_heading'>Employee List</h1>
-      {employees.map( (employee) => {
+      {arrSorterAscToDsc(employees, 'first_name').map( (employee) => {
         return (
-          <div>
+          <div key={employee.id}>
             {/*<p>{employee.first_name}</p> */}
             <EmployeeDetail employee = {employee}/>
           </div>  
