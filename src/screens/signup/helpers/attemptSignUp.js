@@ -43,6 +43,7 @@ const formatName = name => {
 export default function attemptSignUp (
   userFirstName,
   userLastName,
+  userEmail,
   role,
   wage,
   fullTimeStatus,
@@ -63,6 +64,7 @@ export default function attemptSignUp (
   const userInput = {
     userFirstName,
     userLastName,
+    userEmail,
     employeeId,
     accountId,
     password,
@@ -78,7 +80,7 @@ export default function attemptSignUp (
     method: "POST",
     data: userInput
   }
-  axios(req)
+  return axios(req)
     .then(res => { 
       if (res.data) {
         console.log("result: ",res.data)
@@ -86,5 +88,4 @@ export default function attemptSignUp (
         setError("User exist already")
       }
      })
-    .catch (e => alert("Failed to create a new user. Please Try Again."))
 }
