@@ -3,12 +3,15 @@ import { Link, useHistory } from "react-router-dom";
 import './employee.css'
 
 import Header from '../../../general/Header/Header';
-import EmployeeListItem from './EmployeeListItem';
+import EmployeeDetail from './EmployeeDetail';
+
+import { arrSorterAscToDsc } from '../helpers/helpers';
 
 
 const EmployeeList = (props) => {
 //  const [update, setUpdate] = useState(false);
   return (
+
     <div>
       <h1 className = 'add_space employee_list_heading'>Employee List</h1>
       {props.employees.map( (employee) => {
@@ -20,6 +23,7 @@ const EmployeeList = (props) => {
               employee={employee} 
               user={props.user}
             />
+
         )
       })}
     </div>

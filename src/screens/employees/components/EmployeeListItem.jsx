@@ -133,9 +133,6 @@ const EmployeeListItem = (props) => {
       <img src= {employee.image_url?employee.image_url:"https://extendedevolutionarysynthesis.com/wp-content/uploads/2018/02/avatar-1577909_960_720.png"} height='200px'/>
       </div>
     </Card>
-
-   
-
     </div>
   );
 };

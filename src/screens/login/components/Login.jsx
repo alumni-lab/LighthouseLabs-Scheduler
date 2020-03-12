@@ -57,7 +57,8 @@ const Login = props => {
         style={{
           backgroundImage: "url(" + " " + ")",
           backgroundSize: "cover",
-          backgroundPosition: "top center"
+          backgroundPosition: "top center",
+          minWidth: "100vw"
         }}
       >
         <div className={classes.container} style={{ width: "500px" }}>
