@@ -6,3 +6,21 @@
 .employee_list_heading {
   justify-content: center;
 }
+.employee_list_item {
+}
+.employee_card{
+  display: flex;
+  justify-content:space-between;
+  padding-left:30px;
+}
+.collapse-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
+  max-height: 200px;
+  width:300%;
+}
+.buttons {
+  margin-top:120px;
+}

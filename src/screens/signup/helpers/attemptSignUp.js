@@ -54,8 +54,7 @@ export default function attemptSignUp (
   wage = wage*100
   userFirstName = formatName(userFirstName);
   userLastName = formatName(userLastName);
-  role = role.toLowerCase();
-
+  
   //generating id, pw
   const [employeeId,accountId] = makeID(userFirstName, userLastName);
   const password = makePW(userFirstName);

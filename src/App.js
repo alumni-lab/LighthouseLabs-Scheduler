@@ -13,7 +13,7 @@ import Dashboard from './screens/dashboard/components/Dashboard'
 import Login from './screens/login/components/Login'
 import SignUp from './screens/signup/components/SignUp'
 import Home from './screens/home/components/Home'
-import EmployeeList from './screens/employees/components/EmployeeList';
+import Employees from './screens/employees/components/Employees';
 
 function App() {
 
@@ -43,7 +43,7 @@ function App() {
         <Route path="/signup" render={routeProps=> <SignUp
           {...routeProps} user={user} setUser={setUser}
         /> } />
-        <Route path="/employees" render={routeProps=> <EmployeeList 
+        <Route path="/employees" render={routeProps=> <Employees 
           {...routeProps} user={user} setUser={setUser}
         /> } />
         <Route path="/employees/:employeeId" exact render={routeProps=> <Profile 

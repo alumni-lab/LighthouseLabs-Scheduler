@@ -4,6 +4,11 @@ import Modal from '../../../general/Modal/Modal';
 import { Link, useHistory } from "react-router-dom"
 
 const Home = (props) => {
+  const history = useHistory();
+  if (!props.user) {
+    history.push("/login");
+  }
+
   const userType='admin'
   return (
     <div style={{ height:'100vh', width:'100vw' ,display:'flex', justifyContent:'center',alignItems:'center'}} >

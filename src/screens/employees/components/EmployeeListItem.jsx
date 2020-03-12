@@ -1,25 +1,138 @@
 import React from 'react';
 import {arrFormatter} from '../helpers/helpers';
 
-const EmployeeListItem = ({employee}) => {
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+
+const useStyles = makeStyles( theme => ({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  }
+}));
+
+const EmployeeListItem = ({employee,user}) => {
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div className='employee_list_item'>
-      <ul>
-        <li>
+     <Card className={classes.root} variant="outlined">
+       <div className='employee_card'>
+       <div>
+        <CardContent>
+          {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
+          small text
+          </Typography> */}
+          <Typography variant="h5" component="h2">
+        {`${employee.first_name} ${employee.last_name}`}
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+          {employee.role}
+        
+          </Typography>
+          <Typography variant="body2" component="p">
+            Email: {(employee.email) ? employee.email : 'Lives in the cave'}
+            <br />
+            Phone: {(employee.phone) ? employee.phone : 'Too Poor'} 
+          </Typography>
+        </CardContent>
+        
+        {(user && user.employee_id === employee.employee_id)|| 
+         (user && user.is_admin)
+        ? 
+        <>
+        <CardActions>
+        <span style={{marginLeft:"10px",fontSize:"15px",fontWeight:'bold'}}>Profile</span>
+         <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+        <ExpandMoreIcon />
+        </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit style={{width:'inherit'}}>
+        <CardContent>
+          <div className='employee_card'>
+          <Typography paragraph>
           <h3>Employeed ID: {employee.employee_id}</h3>
-          <p>Employee Name: {`${employee.first_name} ${employee.last_name}`}</p>
-          <p>Lecture: {(employee.able_to_lecture) ? 'YES' : 'NO'}</p>
-          <p>Role: {employee.role}</p>
-          <p>Email: {(employee.email) ? employee.email : 'Lives in the cave'}</p>
-          <p>Phone: {(employee.phone) ? employee.phone : 'Too Poor'}</p>
-          <p>Specialty: {arrFormatter(employee.specialty)}</p>
-          <p>Github: {employee.github}</p>
-          <p>Social Network: {(employee.social_network) ? employee.social_network : 'None'}</p>
-          <p>Website: {(employee.website) ? employee.website : 'None'}</p>
-        </li>
-      </ul>
+            <div className='collapse-container'>
+              <div>
+                <p>Employee Name: {`${employee.first_name} ${employee.last_name}`}</p>
+                <p>Lecture: {(employee.able_to_lecture) ? 'YES' : 'NO'}</p>
+                <p>Role: {employee.role}</p>
+                <p>Email: {(employee.email) ? employee.email : 'Lives in the cave'}</p>
+              </div>
+              <div>
+                <p>Phone: {(employee.phone) ? employee.phone : 'Too Poor'}</p>
+                <p>Github: {employee.github}</p>
+                <p>Social Network: {(employee.social_network) ? employee.social_network : 'None'}</p>
+                <p>Website: {(employee.website) ? employee.website : 'None'}</p>
+              </div>
+              <div className='buttons'>
+              <CardActions>
+                <Button color='primary' variant='contained' size="small">Edit</Button>
+                <Button color='secondary' variant='contained'  size="small">Delete</Button>
+              </CardActions>
+              </div>
+            
+            </div>
+            
+            {/* <p>Specialty: {arrFormatter(employee.specialty)}</p> */}
+          </Typography>
+     
+          </div>
+        </CardContent>
+      </Collapse>
+      </>    
+      :null}
+          
+       </div>
+      <img src= {employee.image_url?employee.image_url:"https://extendedevolutionarysynthesis.com/wp-content/uploads/2018/02/avatar-1577909_960_720.png"} height='200px'/>
+      </div>
+    </Card>
+
+   
+
     </div>
   );
 };
 
 export default EmployeeListItem;
+
+
