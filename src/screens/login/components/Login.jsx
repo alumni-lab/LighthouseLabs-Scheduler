@@ -7,7 +7,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
+import Person from "@material-ui/icons/Person";
 
 // core components
 import Header from "../../../general/Header/Header";
@@ -30,7 +30,7 @@ const Login = props => {
 
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
-  const [userEmail, setUserEmail] = useState("");
+  const [userAccount, setUserAccount] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -69,7 +69,7 @@ const Login = props => {
                   onSubmit={event => {
                     attemptLogin(
                       event,
-                      userEmail,
+                      userAccount,
                       userPassword,
                       setError,
                       props.setUser
@@ -86,19 +86,19 @@ const Login = props => {
                     <p className="length-error">{error}</p>
 
                     <CustomInput
-                      labelText="Email"
-                      id="email"
+                      labelText="Account"
+                      id="account"
                       formControlProps={{ fullWidth: true }}
                       inputProps={{
-                        type: "email",
-                        value: userEmail,
+                        type: "text",
+                        value: userAccount,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
+                            <Person className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                         onChange: e => {
-                          setUserEmail(e.target.value);
+                          setUserAccount(e.target.value);
                         }
                       }}
                     />

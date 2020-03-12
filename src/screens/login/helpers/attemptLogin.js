@@ -2,22 +2,32 @@ import axios from 'axios';
 // if (process.env.REACT_APP_API_BASE_URL) {
 //   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 // }
-const cookieSetter = function (email, password) {
-  const userInput = {email, password: password}
+const setCookie = function (accountId, password) {
+  const userInput = {accountId, password}
   const req = {
-    url: "/users",
+    url: "/users/login",
     method: "POST",
     data: userInput
   }
   return axios(req)
 };
 
-export default function attemptLogin (event, email, password, setError, setUser) {
+export default function attemptLogin (
+  event,
+  userAccount,
+  userPassword,
+  setError,
+  setUser) {
   event.preventDefault();
-  cookieSetter(email, password)
+  setCookie(userAccount, userPassword)
     .then((res) => {
       if (res.data) {
-        setUser({name: res.data.user.first_name, id: res.data.user.id});
+        const user = res.data.user
+        setUser({
+          name: user.first_name, 
+          employee_id: user.employee_id,
+          is_admin: user.is_admin
+          });
       } else {
         setError('User not found')
       }

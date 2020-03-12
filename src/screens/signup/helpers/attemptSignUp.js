@@ -75,7 +75,7 @@ export default function attemptSignUp (
   }
   console.log(userInput)
   const req = {
-    url: "/users",
+    url: "/users/signup",
     method: "POST",
     data: userInput
   }
@@ -83,7 +83,7 @@ export default function attemptSignUp (
     .then(res => { 
       if (res.data) {
         console.log("result: ",res.data);
-        
+
         if (emailNow) {
           let newUser = {
             userFirstName,

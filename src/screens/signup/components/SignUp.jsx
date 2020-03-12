@@ -34,6 +34,12 @@ import attemptSignUp from "../helpers/attemptSignUp";
 
 
 const SignUp = props => {
+  const history = useHistory();
+  if (!props.user || !props.user.is_admin) {
+    history.push("/");
+  }
+
+
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
 
@@ -47,7 +53,7 @@ const SignUp = props => {
   const [userEmail, setUserEmail] = useState("");
   const [emailNow, setEmailNow] = useState(true);
   const [error, setError] = useState("");
-  const history = useHistory();
+  
   
   // --------- CARD DROP-DOWN STYLE --------------------- //
 
