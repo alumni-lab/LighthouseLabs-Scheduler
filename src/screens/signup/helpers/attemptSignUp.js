@@ -2,6 +2,7 @@ import axios from 'axios';
 // if (process.env.REACT_APP_API_BASE_URL) {
 //   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 // }
+import sendEmail from './sendEmail'
 
 const randomFixedInteger = function (length) {
   return Math.floor(Math.pow(10, length-1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
@@ -37,9 +38,6 @@ const formatName = name => {
 }
 
 
-
-
-
 export default function attemptSignUp (
   userFirstName,
   userLastName,
@@ -49,7 +47,8 @@ export default function attemptSignUp (
   fullTimeStatus,
   abilityToLecture,
   isAdmin,
-  setError
+  setError,
+  emailNow
 ) {
   //formatting
   wage = wage*100
@@ -83,7 +82,20 @@ export default function attemptSignUp (
   return axios(req)
     .then(res => { 
       if (res.data) {
-        console.log("result: ",res.data)
+        console.log("result: ",res.data);
+        
+        if (emailNow) {
+          let newUser = {
+            userFirstName,
+            userLastName,
+            userEmail,
+            employeeId,
+            accountId,
+            password
+          }
+          sendEmail(newUser)
+        }
+
       } else {
         setError("User exist already")
       }

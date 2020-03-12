@@ -30,28 +30,33 @@ import styles from "../../../general/Assets/jss/material-kit-react/views/loginPa
 // --------- HELPER FUNCTION --------------------------- //
 import attemptSignUp from "../helpers/attemptSignUp";
 
+
+
+
 const SignUp = props => {
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
 
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Mentor');
   const [wage, setWage] = useState('');
   const [fullTimeStatus, setFullTimeStatus] = useState(false);
   const [abilityToLecture, setAbilityToLecture] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [sendEmail, setSendEmail] = useState(false);
-
   const [userEmail, setUserEmail] = useState("");
-  // const [userPassword, setUserPassword] = useState("");
+  const [emailNow, setEmailNow] = useState(true);
   const [error, setError] = useState("");
   const history = useHistory();
+  
   // --------- CARD DROP-DOWN STYLE --------------------- //
+
   const useStyles = makeStyles(styles);
+  
   setTimeout(function() {
     setCardAnimation("");
   }, 400);
+  
   const classes = useStyles();
   return (
     <div>
@@ -88,7 +93,8 @@ const SignUp = props => {
                       fullTimeStatus,
                       abilityToLecture,
                       isAdmin,
-                      setError
+                      setError,
+                      emailNow
                     )
                     .then((e)=>{
                       history.push('/');
@@ -220,8 +226,8 @@ const SignUp = props => {
                   <FormControlLabel 
                       control={
                         <Checkbox 
-                          checked={sendEmail}
-                          onChange={e=>setSendEmail(!sendEmail)}
+                          checked={emailNow}
+                          onChange={e=>setEmailNow(!emailNow)}
                           color="default"
                         />
                       }
