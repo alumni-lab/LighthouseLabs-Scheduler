@@ -2,7 +2,20 @@
   display: flex;
   padding-top: 80px;
 }
+.emp_list {
+  min-width: 100vw;
+}
+.emp_detail {
+  display: flex;
+  justify-content: center;
+}
+
+#form-dialog-title h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
 
 .employee_list_heading {
+  display: flex;
   justify-content: center;
 }

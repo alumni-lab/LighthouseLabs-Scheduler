@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import './employee.css'
 
 import Header from '../../../general/Header/Header';
-import EmployeeListItem from './EmployeeListItem';
+import EmployeeDetail from './EmployeeDetail';
 
 const employees = [
   {
@@ -48,15 +48,15 @@ const employees = [
 
 const EmployeeList = (props) => {
   return (
-    <div>
+    <div className="emp_list">
       <Header brand="LHL SCHEDULER" fixed />
       <h1 className = 'add_space employee_list_heading'>Employee List</h1>
       {employees.map( (employee) => {
         return (
-            <EmployeeListItem 
-              key={employee.id} 
-              employee={employee} 
-            />
+          <div>
+            {/*<p>{employee.first_name}</p> */}
+            <EmployeeDetail employee = {employee}/>
+          </div>  
         )
       })}
     </div>
