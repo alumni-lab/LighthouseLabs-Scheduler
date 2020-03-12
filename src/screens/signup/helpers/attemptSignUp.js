@@ -2,6 +2,7 @@ import axios from 'axios';
 // if (process.env.REACT_APP_API_BASE_URL) {
 //   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 // }
+import sendEmail from './sendEmail'
 
 const randomFixedInteger = function (length) {
   return Math.floor(Math.pow(10, length-1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
@@ -37,25 +38,23 @@ const formatName = name => {
 }
 
 
-
-
-
 export default function attemptSignUp (
   userFirstName,
   userLastName,
+  userEmail,
   role,
   wage,
   fullTimeStatus,
   abilityToLecture,
   isAdmin,
-  setError
+  setError,
+  emailNow
 ) {
   //formatting
   wage = wage*100
   userFirstName = formatName(userFirstName);
   userLastName = formatName(userLastName);
-  role = role.toLowerCase();
-
+  
   //generating id, pw
   const [employeeId,accountId] = makeID(userFirstName, userLastName);
   const password = makePW(userFirstName);
@@ -63,6 +62,7 @@ export default function attemptSignUp (
   const userInput = {
     userFirstName,
     userLastName,
+    userEmail,
     employeeId,
     accountId,
     password,
@@ -74,17 +74,29 @@ export default function attemptSignUp (
   }
   console.log(userInput)
   const req = {
-    url: "/users",
+    url: "/users/signup",
     method: "POST",
     data: userInput
   }
-  axios(req)
+  return axios(req)
     .then(res => { 
       if (res.data) {
-        console.log("result: ",res.data)
+        console.log("result: ",res.data);
+
+        if (emailNow) {
+          let newUser = {
+            userFirstName,
+            userLastName,
+            userEmail,
+            employeeId,
+            accountId,
+            password
+          }
+          sendEmail(newUser)
+        }
+
       } else {
         setError("User exist already")
       }
      })
-    .catch (e => alert("Failed to create a new user. Please Try Again."))
 }

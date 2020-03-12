@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -30,27 +30,39 @@ import styles from "../../../general/Assets/jss/material-kit-react/views/loginPa
 // --------- HELPER FUNCTION --------------------------- //
 import attemptSignUp from "../helpers/attemptSignUp";
 
+
+
+
 const SignUp = props => {
+  const history = useHistory();
+  if (!props.user || !props.user.is_admin) {
+    history.push("/");
+  }
+
+
   // --------- DECLARING STATE --------------------------- //
   const [cardAnimaton, setCardAnimation] = useState("cardHidden");
 
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Mentor');
   const [wage, setWage] = useState('');
   const [fullTimeStatus, setFullTimeStatus] = useState(false);
   const [abilityToLecture, setAbilityToLecture] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-
-  // const [userEmail, setUserEmail] = useState("");
-  // const [userPassword, setUserPassword] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [emailNow, setEmailNow] = useState(true);
   const [error, setError] = useState("");
-  const history = useHistory();
+  
+  
   // --------- CARD DROP-DOWN STYLE --------------------- //
+
   const useStyles = makeStyles(styles);
+  
   setTimeout(function() {
     setCardAnimation("");
   }, 400);
+  
   const classes = useStyles();
   return (
     <div>
@@ -76,26 +88,42 @@ const SignUp = props => {
                 <form
                   className={classes.form}
                    onSubmit={event => {
-                    event.preventDefault(); 
 
+                    event.preventDefault(); 
                     attemptSignUp(
                       userFirstName,
                       userLastName,
+                      userEmail,
                       role,
                       wage,
                       fullTimeStatus,
                       abilityToLecture,
                       isAdmin,
-                      setError
-                    );
+                      setError,
+                      emailNow
+                    )
+                    .then((e)=>{
+                      history.push('/');
+                    })
+                    .catch(e => alert("Failed to create a new user. Please Try Again."))
                   }}
                 >
-                  {props.user ? history.goBack() : null}
                   <CardHeader color="info" className={classes.cardHeader}>
-                    <h4>SIGN UP</h4>
+                    <h4>CREATE NEW USER</h4>
                   </CardHeader>
                   <CardBody>
                     <p className="length-error">{error}</p>
+                    <Autocomplete
+                      options={['Insturctor', 'Mentor', 'Staff']}
+                      getOptionLabel={option => option}
+                      id="auto-select"
+                      autoSelect
+                      renderInput={params => <TextField required={true} {...params} label="Role" style={{opacity:0.6,marginBottom:'20px'}} />}
+                      value={role}
+                      onChange={(event, newValue) => {
+                        setRole(newValue);
+                      }}
+                    />
                     <CustomInput
                       labelText="First Name"
                       id="first_name"
@@ -151,15 +179,21 @@ const SignUp = props => {
                         }
                       }}
                     />
-                    <Autocomplete
-                      options={['Insturctor', 'Mentor', 'Staff']}
-                      getOptionLabel={option => option}
-                      id="auto-select"
-                      autoSelect
-                      renderInput={params => <TextField required={true} {...params} label="Role" style={{opacity:0.6,marginBottom:'20px'}} />}
-                      value={role}
-                      onChange={(event, newValue) => {
-                        setRole(newValue);
+                     <CustomInput
+                      labelText="Email"
+                      id="email"
+                      formControlProps={{ fullWidth: true, required: true }}
+                      inputProps={{
+                        type: "text",
+                        value: userEmail,
+                        // endAdornment: (
+                        //   <InputAdornment position="end">
+                        //     <Person className={classes.inputIconsColor} />
+                        //   </InputAdornment>
+                        // ),
+                        onChange: e => {
+                          setUserEmail(e.target.value);
+                        }
                       }}
                     />
                   <FormGroup row>
@@ -195,8 +229,17 @@ const SignUp = props => {
                   </FormGroup>
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
+                  <FormControlLabel 
+                      control={
+                        <Checkbox 
+                          checked={emailNow}
+                          onChange={e=>setEmailNow(!emailNow)}
+                          color="default"
+                        />
+                      }
+                      label="share id/pw with the new user now?" />
                     <Button type="submit" simple color="info" size="lg">
-                      Sign Up
+                      Create
                     </Button>
                   </CardFooter>
                 </form>

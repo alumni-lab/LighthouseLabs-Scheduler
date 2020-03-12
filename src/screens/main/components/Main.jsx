@@ -1,9 +1,16 @@
 import React from 'react';
-
-const Main = () => {
+import Header from '../../../general/Header/Header';
+const Main = (props) => {
   return (
     <div>
-      Main
+      <Header
+        // color="transparent"
+        brand="LHL SCHEDULER"
+        fixed
+        user={props.user}
+        setUser={props.setUser}
+      />
+      
       
     </div>
   );

@@ -25,12 +25,10 @@ export default function Header(props) {
   const classes = useStyles();
 
   const logout = () => {
-    axios.get("/logout")
+    axios.get("/users/logout")
     .then(res => {
       props.setUser(null);
-      if (props.tripName) {
         history.push("/")
-      }
     })
     .catch(e => console.error(e))
   }
@@ -53,7 +51,8 @@ export default function Header(props) {
       </div>
         {(user)?
         <div>
-          <Button className={classes.title} onClick={()=>{history.push(`/profile/${"useid here"}`)}}>{user.name}</Button>
+          <Button className={classes.title} onClick={()=>{history.push(`/profile/${"useid here"}`)}}> 
+          {user.name} {user.is_admin?'(Admin)':""}</Button>
           <Button className={classes.title} onClick={logout}>LOG OUT</Button>
         </div>
           :
