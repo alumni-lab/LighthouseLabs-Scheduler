@@ -13,10 +13,32 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
+
+import Loading from '../../../general/Loading/Loading';
+import DoneOutlineOutlinedIcon from '@material-ui/icons/DoneOutlineOutlined';
+import axios from 'axios';
+
  const Edit = function FormDialog(props) {
 
   const [open, setOpen] = React.useState(false);
   const [err, setErr] = useState(false);
+  const [empInfo, setEmpInfo] = useState(props.employee)
+  const [changePW, setChangePW] = useState(false);
+  const [mode, setMode] = useState(null);
+
+  const pw={
+    value:'',
+    length: 0,
+    showPassword: false
+  }
+  const [password, setPassword] = useState({...pw})
+  const [repassword, setRepassword]= useState({...pw});
+
+  const conditionals = {
+    length: password.length>6 && repassword.length>6,
+    match:  password.length>0 && repassword.length>0 && password.value === repassword.value
+  }
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,22 +48,54 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
   };
 
   const save = () => {
+    setMode('loading');
+
     if (changePW) {
       if (conditionals.length&&conditionals.match){
 
-        //after axios
-        props.setEmployee(empInfo)
-        handleClose();
-        
+        setTimeout(()=>{
+          axios.post('/users/edit', {
+            user:{...empInfo, password:password.value}
+          })
+          .then(res => {
+            console.log("Edited: ", res.data);
+
+            setMode('complete');
+            setTimeout(()=>{
+              handleClose();
+              setMode(null);
+              props.setEmployee(empInfo)
+            },500)
+          })
+          .catch(err=> {
+            alert("Failed to Edit.");
+            setMode(null);
+          }) 
+        },1000)
+
       } else {
         setErr(true);
       }
     } else {
 
-       //after axios
-      props.setEmployee(empInfo)
-      handleClose()
-    
+      setTimeout(()=>{
+        axios.post('/users/edit', {
+          user:empInfo
+        })
+        .then(res => {
+          console.log("Edited: ", res);
+          setMode('complete');
+          setTimeout(()=>{
+            handleClose();
+            setMode(null);
+            props.setEmployee(empInfo)
+          },500)
+        })
+        .catch(err=> {
+          alert("Failed to Edit.");
+          setMode(null);
+        }) 
+      },1000)    
     }
   }
   const cancel = () => {
@@ -61,31 +115,12 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
     },500)
   },[open])
 
-
-  const [empInfo, setEmpInfo] = useState(props.employee)
-  const [changePW, setChangePW] = useState(false);
-
-  const pw={
-    value:'',
-    length: 0,
-    showPassword: false
-  }
-  const [password, setPassword] = useState({...pw})
-  const [repassword, setRepassword]= useState({...pw});
-
   const showPW = (state,cb) => {
     cb({
       ...state,
       showPassword: !state.showPassword
     })
   }
-  
-  const conditionals = {
-    length: password.length>6 && repassword.length>6,
-    match:  password.length>0 && repassword.length>0 && password.value === repassword.value
-  }
-
-  // const [condition, setCondition] = useState()
 
 
   return (
@@ -258,12 +293,16 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
           }
         </DialogContent>
         <DialogActions>
-          <Button onClick={cancel} color="secondary">
+        {!mode? <> <Button onClick={cancel} color="secondary">
             Cancel
           </Button>
           <Button onClick={save} color="primary">
             Save
-          </Button>
+          </Button> </>:
+          mode === 'loading'? <Loading type={'bars'} color={'black'} />
+          : <DoneOutlineOutlinedIcon/>
+           }
+          
         </DialogActions>
       </Dialog>
     </div>

@@ -35,12 +35,21 @@ import axios from 'axios';
     }
 
     setTimeout(()=>{
-      setMode('complete');
-      setTimeout(()=>{
-        handleClose()
-        setMode(null);
-        props.setEmployees(newState);
-      },1000)
+      axios.post('/users/delete',{
+        id:employee.id
+      })
+      .then(res => {
+        console.log("User Deleted: ", res.data.first_name,  res.data.employee_id)
+        setMode('complete');
+        setTimeout(()=>{
+          handleClose();
+          setMode(null);
+          props.setEmployees(newState);
+        },500)
+      }).catch(err => {
+        alert("Failed to Delete")
+        setMode(null)
+      })
     },1000)
   }
   
