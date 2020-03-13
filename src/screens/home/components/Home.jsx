@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../../general/Header/Header';
-import Modal from '../../../general/Modal/Modal';
+// import Modal from '../../../general/Modal/Modal';
 import { Link, useHistory } from "react-router-dom"
 
 const Home = () => {
