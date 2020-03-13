@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
-  height: 100vh;
-  min-width: 100vw;
+  /* height: 100vh; */
+  /* min-width: 100vw; */ 
   display: flex;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'lato'
@@ -11,7 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
-  min-width: 100vw;
+  width: 100vw;
 }
 
 code {
