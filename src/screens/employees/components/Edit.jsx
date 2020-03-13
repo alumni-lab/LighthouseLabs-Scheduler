@@ -226,7 +226,7 @@ import axios from 'axios';
               setEmpInfo(newState)
             }}
           />
-          {!changePW? <Button onClick={()=>{setChangePW(!changePW)}} color="default"> 
+          {!changePW? <Button onClick={()=>{setChangePW(!changePW)}} color="primary"> 
           Change Password
           </Button>:
           <>

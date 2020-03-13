@@ -8,7 +8,7 @@ const EmployeeList = (props) => {
   return (
 
     <div>
-      <h1 className = 'add_space employee_list_heading'>Employee List</h1>
+      <h1 className = 'add_space employee_list_heading'>Our Team</h1>
       {props.employees.map( (employee) => {
         return (
             <EmployeeListItem 
