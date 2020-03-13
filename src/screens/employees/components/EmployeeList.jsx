@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Link, useHistory } from "react-router-dom";
 import './employee.css'
 import EmployeeListItem from './EmployeeListItem'
 
@@ -7,7 +6,7 @@ const EmployeeList = (props) => {
 //  const [update, setUpdate] = useState(false);
   return (
 
-    <div>
+    <div className="employee-list-item">
       <h1 className = 'add_space employee_list_heading'>Our Team</h1>
       {props.employees.map( (employee) => {
         return (

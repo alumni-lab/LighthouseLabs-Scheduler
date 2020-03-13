@@ -54,7 +54,7 @@ import axios from 'axios';
       if (conditionals.length&&conditionals.match){
 
         setTimeout(()=>{
-          axios.post('/users/edit', {
+          axios.post('/users/edit/pw', {
             user:{...empInfo, password:password.value}
           })
           .then(res => {
@@ -65,21 +65,21 @@ import axios from 'axios';
               handleClose();
               setMode(null);
               props.setEmployee(empInfo)
-            },500)
+            },400)
           })
           .catch(err=> {
             alert("Failed to Edit.");
             setMode(null);
           }) 
-        },1000)
+        },450)
 
       } else {
         setErr(true);
       }
     } else {
-
+      console.log("edit: ", empInfo)
       setTimeout(()=>{
-        axios.post('/users/edit', {
+        axios.post('/users/edit/general', {
           user:empInfo
         })
         .then(res => {
@@ -89,13 +89,13 @@ import axios from 'axios';
             handleClose();
             setMode(null);
             props.setEmployee(empInfo)
-          },500)
+          },400)
         })
         .catch(err=> {
           alert("Failed to Edit.");
           setMode(null);
         }) 
-      },1000)    
+      },450)    
     }
   }
   const cancel = () => {

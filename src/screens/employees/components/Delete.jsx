@@ -45,12 +45,12 @@ import axios from 'axios';
           handleClose();
           setMode(null);
           props.setEmployees(newState);
-        },500)
+        },450)
       }).catch(err => {
         alert("Failed to Delete")
         setMode(null)
       })
-    },1000)
+    },500)
   }
   
   return (
