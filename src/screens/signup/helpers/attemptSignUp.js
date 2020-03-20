@@ -72,9 +72,8 @@ export default function attemptSignUp (
     abilityToLecture,
     isAdmin
   }
-  console.log(userInput)
   const req = {
-    url: "/users/signup",
+    url: "/users",
     method: "POST",
     data: userInput
   }

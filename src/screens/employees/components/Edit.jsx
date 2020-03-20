@@ -49,13 +49,15 @@ import axios from 'axios';
 
   const save = () => {
     setMode('loading');
-
+    const userId = empInfo.id
     if (changePW) {
       if (conditionals.length&&conditionals.match){
 
         setTimeout(()=>{
-          axios.post('/users/edit/pw', {
-            user:{...empInfo, password:password.value}
+          
+          axios.put(`/users/${userId}`, {
+            user:{...empInfo, password:password.value},
+            type: "password"
           })
           .then(res => {
             console.log("Edited: ", res.data);
@@ -79,8 +81,9 @@ import axios from 'axios';
     } else {
       console.log("edit: ", empInfo)
       setTimeout(()=>{
-        axios.post('/users/edit/general', {
-          user:empInfo
+        axios.put(`/users/${userId}`, {
+          user: empInfo,
+          type: "general"
         })
         .then(res => {
           console.log("Edited: ", res);
