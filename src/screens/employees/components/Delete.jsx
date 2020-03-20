@@ -35,9 +35,8 @@ import axios from 'axios';
     }
 
     setTimeout(()=>{
-      axios.post('/users/delete',{
-        id:employee.id
-      })
+      const userId = employee.id;
+      axios.delete(`/users/${userId}`)
       .then(res => {
         console.log("User Deleted: ", res.data.first_name,  res.data.employee_id)
         setMode('complete');
