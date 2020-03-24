@@ -1,11 +1,25 @@
 import React from 'react';
 import Header from '../../../general/Header/Header';
-import WeekCalendar from 'react-week-calendar';
- 
-import 'react-week-calendar/dist/style.css'
+import Dnd from './dnd/Dnd'
 import moment from 'moment';
 
 const Main = (props) => {
+
+  // console.log(moment().startOf('month').format('MMM D, YY'))
+  const start = moment('2020W01').startOf('week')
+  const end = moment('2020W01').endOf('week')
+  // console.log(start.format('MMM D, YY'));
+  // console.log(end);
+  // console.log(start.add('d',1).format('MMM D, YY'))
+
+  const weekdayColumns = [];
+  const numberOfDays=7
+  for (let i = 0; i < numberOfDays; i += 1) {
+    const date = moment(start).add(i, 'd').format('dddd (MMM D)');
+    console.log(date)
+    weekdayColumns.push(date)
+  }
+
   return (
     <div>
       {/* <Header
@@ -15,19 +29,8 @@ const Main = (props) => {
         user={props.user}
         setUser={props.setUser}
       /> */}
-
-      <WeekCalendar
-        firstDay={moment('2019W10')}
-        numberOfDays={7}
-        scaleHeaderTitle={'LHL Scheduler'}
-        scaleFormat= {'h:mm'}
-        startTime= {moment({ h: 10, m: 0 })}
-        endTime={moment({ h: 22, m: 0 })}
-        scaleUnit={60}
-        cellHeight={40}
-        eventSpacing={30}
-      />
-      
+    
+    <Dnd weekdayColumns={weekdayColumns}/>
       
     </div>
   );
