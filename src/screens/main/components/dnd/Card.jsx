@@ -17,9 +17,10 @@ const Card = (props) => {
           className='card'
           style={{
             userSelect: "none",
-            padding: 16,
+            padding: 2,
             margin: "0 0 8px 0",
-            minHeight: "50px",
+            height: 35,
+            width:"60px",
             backgroundColor: snapshot.isDragging
               ? "#263B4A"
               : "#456C86",
@@ -28,10 +29,10 @@ const Card = (props) => {
           }}
         >
             <div className='item-cont'>
-                <strong className='item-name'>{props.item.content}</strong>
+                <strong className='item-name'>{props.mentor.name}</strong>
             </div>
             <div className='item-cont2'>
-              {props.droppableId ==='list'?"": <button className='item-delete btn btn-danger' onClick={()=> deleteCard(props.index, props.droppableId, props.columns, props.setColumns)}>
+              {props.droppableId ==='list'?"": <button className='item-delete btn btn-danger' onClick={()=> deleteCard(props.index, props.slotId, props.columns, props.setColumns, props.dayId)}>
               close
               </button>} 
             </div>

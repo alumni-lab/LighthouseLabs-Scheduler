@@ -6,49 +6,96 @@ import Card from './Card'
 
 const CardList = (props) => {
 
-  return (
-    <Droppable 
-    droppableId={props.columnId}
-    key={props.columnId}
-    isDropDisabled={props.columnId==='list'
-    }
-    >
-    {(provided, snapshot) => {
-      return (
-        <div
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          className={"inside-column"}
-          style={{
-            background: snapshot.isDraggingOver
-            ? "lightblue"
-            : "lightgrey",
-          padding: 4,
-          width: 140,
-          minHeight: 500,
-          border: '0.02px ridge black'
-          }}
-        >
-          {props.column.items.map((item, index) => {
-            return (
-              <Card
-                isClone='true'
-                key={item.id}
-                draggableId={item.id}
-                droppableId={props.columnId}
-                index={index}
-                item={item}
-                setColumns={props.setColumns}
-                columns={props.columns}
-              />
-            );
-          })}
-          {provided.placeholder}
-        </div>
-      );
-    }}
-  </Droppable>
-  );
+  if (props.droppableId==='list'){
+    return (
+      <Droppable 
+      droppableId={props.droppableId}
+      key={props.droppableId}
+      isDropDisabled={props.droppableId==='list'
+      }
+      >
+      {(provided, snapshot) => {
+        return (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={"inside-column"}
+            style={{
+              background: snapshot.isDraggingOver
+              ? "lightblue"
+              : "lightgrey",
+            padding: 4,
+            width: 140,
+            minHeight: 500,
+            border: '0.02px ridge black'
+            }}
+          >
+            {props.mentors.map((mentor, index) => {
+              return (
+                <Card
+                  key={mentor.id}
+                  draggableId={mentor.id}
+                  droppableId={props.droppableId}
+                  index={index}
+                  mentor={mentor}
+                  columns={props.columns}
+                  setColumns={props.setColumns}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </div>
+        );
+      }}
+    </Droppable>
+    );
+  } else {
+    return (
+      <Droppable 
+      droppableId={props.droppableId}
+      key={props.droppableId}
+      isDropDisabled={false}
+      >
+      {(provided, snapshot) => {
+        return (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={"inside-column"}
+            style={{
+              display:'flex',
+              background: snapshot.isDraggingOver
+              ? "lightblue"
+              : "lightgrey",
+            padding: 0,
+            width: 140,
+            minHeight: 50,
+            border: '0.02px ridge black'
+            }}
+          >
+            {props.slot.items.map((mentor, index) => {
+              return (
+                <Card
+                  key={mentor.id}
+                  draggableId={mentor.id}
+                  droppableId={props.droppableId}
+                  index={index}
+                  mentor={mentor}
+                  columns={props.columns}
+                  setColumns={props.setColumns}
+                  dayId={props.dayId}
+                  slotId={props.slotId}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </div>
+        );
+      }}
+    </Droppable>
+    );
+  }
+  
 };
 
 export default CardList;
