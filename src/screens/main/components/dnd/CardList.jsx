@@ -55,6 +55,7 @@ const CardList = (props) => {
       droppableId={props.droppableId}
       key={props.droppableId}
       isDropDisabled={false}
+      direction="horizontal"
       >
       {(provided, snapshot) => {
         return (
