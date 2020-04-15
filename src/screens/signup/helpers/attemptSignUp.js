@@ -2,24 +2,100 @@ import axios from 'axios';
 // if (process.env.REACT_APP_API_BASE_URL) {
 //   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 // }
+import sendEmail from './sendEmail'
+
+const randomFixedInteger = function (length) {
+  return Math.floor(Math.pow(10, length-1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
+}
+
+const makeID = (fname,lname) => {
+  const rand4 = randomFixedInteger(4);
+  const employeeId = fname[0].toUpperCase()+lname[0].toUpperCase()+rand4;
+  const accountId = employeeId+"_lhl"
+  return [employeeId, accountId];
+}
+const makePW = (fname) => {
+
+  const rand6 = randomFixedInteger(6)
+  const firstN = fname.toLowerCase().split("");
+  const randIndex = Math.floor(Math.random()*firstN.length);
+  firstN[randIndex]=firstN[randIndex].toUpperCase();
+  const string = firstN.join("")
+
+  const symbols = ["!","@","#","$","%","&","*"]
+  const randSymbol = symbols [Math.floor(Math.random()*symbols.length)];
+
+  const password = string+randSymbol+rand6;
+  
+  return password
+}
+
+const formatName = name => {
+  let n = name.toLowerCase().split("");
+  n[0] = n[0].toUpperCase();
+  const formattedName = n.join("");
+  return formattedName;
+}
 
 
-export default function attemptSignUp (event, first_name, last_name, email, password, setError, setUser)  {
-  event.preventDefault();
-  // console.log(`attempting to sign-up with ${first_name}, ${last_name}, email: ${email} and password: ${password}`)
-  const userInput = {first_name, last_name, email, password}
+export default function attemptSignUp (
+  userFirstName,
+  userLastName,
+  userEmail,
+  role,
+  wage,
+  fullTimeStatus,
+  abilityToLecture,
+  isAdmin,
+  setError,
+  emailNow
+) {
+  //formatting
+  wage = wage*100
+  userFirstName = formatName(userFirstName);
+  userLastName = formatName(userLastName);
+  
+  //generating id, pw
+  const [employeeId,accountId] = makeID(userFirstName, userLastName);
+  const password = makePW(userFirstName);
+
+  const userInput = {
+    userFirstName,
+    userLastName,
+    userEmail,
+    employeeId,
+    accountId,
+    password,
+    role,
+    wage,
+    fullTimeStatus,
+    abilityToLecture,
+    isAdmin
+  }
   const req = {
-    url: "/users/signup",
+    url: "/users",
     method: "POST",
     data: userInput
   }
-  axios(req)
+  return axios(req)
     .then(res => { 
       if (res.data) {
-        console.log(res.data)
+        console.log("result: ",res.data);
+
+        if (emailNow) {
+          let newUser = {
+            userFirstName,
+            userLastName,
+            userEmail,
+            employeeId,
+            accountId,
+            password
+          }
+          sendEmail(newUser)
+        }
+
       } else {
         setError("User exist already")
       }
      })
-    .catch (e => console.error(e))
 }
